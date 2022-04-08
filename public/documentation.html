@@ -6,13 +6,79 @@
 <body>
   <main>
     <div>
-      <p>
-        To build the server-side component of a “movies” web application. The web
-  application will provide users with access to information about different
-  movies, directors, and genres. Users will be able to sign up, update their
-  personal information, and create a list of their favorite movies.
-
-      </p>
+      <h1>Endpoints</h1>
+      <table>
+        <tr class="column-headers">
+          <th>Business Logic</th>
+          <th>URL</th>
+          <th>HTTP Method</th>
+          <th>Request Body Data Format</th>
+          <th>Response</th>
+        </tr>
+        <tr>
+          <td>Return a list of ALL movies to the user</td>
+          <td>/movies</td>
+          <td>GET</td>
+          <td>NONE</td>
+          <td>JSON Object</td>
+        </tr>
+        <tr>
+          <td>Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user</td>
+          <td>/movies/[title]</td>
+          <td>GET</td>
+          <td>NONE</td>
+          <td>JSON OBject</td>
+        </tr>
+        <tr>
+          <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
+          <td>/movies/[title]/[genre]</td>
+          <td>GET</td>
+          <td>NONE</td>
+          <td>JSON Object</td>
+        </tr>
+        <tr>
+          <td>Return data about a director (bio, birth year, death year) by name</td>
+          <td>/directors/[name]</td>
+          <td>GET</td>
+          <td>NONE</td>
+          <td>JSON Object</td>
+        </tr>
+        <tr>
+          <td>Allow new users to register</td>
+          <td>/users</td>
+          <td>POST</td>
+          <td>JSON Object</td>
+          <td>JSON Object</td>
+        </tr>
+        <tr>
+          <td>Allow users to update their user info (username)</td>
+          <td>/users/[username]</td>
+          <td>PUT</td>
+          <td>NONE</td>
+          <td>Text message</td>
+        </tr>
+        <tr>
+          <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
+          <td>/users/[favorites]</td>
+          <td>POST</td>
+          <td>JSON Object</td>
+          <td>JSON Object</td>
+        </tr>
+        <tr>
+          <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
+          <td>/users/[favorites]</td>
+          <td>DELETE</td>
+          <td>NONE</td>
+          <td>Text message</td>
+        </tr>
+        <tr>
+          <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
+          <td>/users</td>
+          <td>DELETE</td>
+          <td>NONE</td>
+          <td>Text message</td>
+        </tr>
+      </table>
     </div>
 
   </main>
