@@ -1,10 +1,8 @@
 // import packages/modules
 const express = require("express"),
-      morgan = require("morgan");
-      // fs = require("fs"),
-      // path = require("path"),
-      // http = require("http"),
-      // url = require("url");
+      morgan = require("morgan"),
+      uuid = require("uuid"),
+      bodyParser = require("body-parser");
 
 const app = express(); 
 
@@ -20,7 +18,7 @@ app.use((err, req, res, next) => {
 let topMovies = [
   {
     rank: 1,
-    movie: "The Dark Knight"
+    movie: "The Dark Knight",
   },
   {
     rank: 2,
@@ -61,13 +59,16 @@ let topMovies = [
 
 ];
 
-app.get("/", (req, res) => {
-  res.send("Welcome to my app!");
-});
+// Return a list of ALL movies to the user
+// Return data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+// Return data about a genre (description) by name/title (e.g., “Thriller”)
+// Return data about a director (bio, birth year, death year) by name
+// Allow new users to register
+// Allow users to update their user info (username)
+// Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+// Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+// Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
 
-app.get("/movies", (req, res) => {
-  res.json(topMovies);
-});
 
 app.listen(8080, () => {
   console.log("Your app is listening on port 8080.");
