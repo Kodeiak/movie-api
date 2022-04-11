@@ -31,14 +31,14 @@
         </tr>
         <tr>
           <td>Return data about a genre (description) by name/title (e.g., “Thriller”)</td>
-          <td>/movies/[genre]</td>
+          <td>/movies/genre/[title]</td>
           <td>GET</td>
           <td>NONE</td>
           <td>JSON Object</td>
         </tr>
         <tr>
           <td>Return data about a director (bio, birth year, death year) by name</td>
-          <td>/directors/[name]</td>
+          <td>/movies/director/[title]</td>
           <td>GET</td>
           <td>NONE</td>
           <td>JSON Object</td>
@@ -54,26 +54,26 @@
           <td>Allow users to update their user info (username)</td>
           <td>/users/[username]</td>
           <td>PUT</td>
-          <td>NONE</td>
-          <td>Text message</td>
+          <td>JSON Object</td>
+          <td>JSON Object</td>
         </tr>
         <tr>
           <td>Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)</td>
-          <td>/users/[favorites]</td>
-          <td>POST</td>
-          <td>JSON Object</td>
-          <td>JSON Object</td>
+          <td>/users/[title]</td>
+          <td>PUT</td>
+          <td>NONE</td>
+          <td>Text Message</td>
         </tr>
         <tr>
           <td>Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)</td>
-          <td>/users/[favorites]</td>
+          <td>/users/[title]</td>
           <td>DELETE</td>
           <td>NONE</td>
           <td>Text message</td>
         </tr>
         <tr>
           <td>Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)</td>
-          <td>/users</td>
+          <td>/users/[id]</td>
           <td>DELETE</td>
           <td>NONE</td>
           <td>Text message</td>
