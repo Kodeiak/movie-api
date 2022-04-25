@@ -5,9 +5,9 @@ const jwt = require("jsonwebtoken"),
 
 require("./passport"); // import local passport file
 
-let generateJWTToken = user => {
+let generateJWTToken = (user) => {
   return jwt.sign(user, jwtSecret, {
-    subject: user.Username, // username being encoded in the JWT
+    subject: user.username, // username being encoded in the JWT
     expiresIn: "7d", // how long token is good for
     algorithm: "HS256" // algo used to "sign" or encode JWT values
   });

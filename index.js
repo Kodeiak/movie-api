@@ -40,7 +40,7 @@ app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) 
 });
 
 // READ a list of ALL users
-app.get("/users", (req, res) => {
+app.get("/users", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.find()
     .then(users => res.status(200).json(users))
     .catch(err => {
