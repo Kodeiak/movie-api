@@ -4,14 +4,15 @@ const express = require("express"),
       uuid = require("uuid"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
-      auth = require("./auth")(app), // (app) ensures Express is available in auth.js,
-      passport = require("passport"),
       models = require("./models.js");
 
 const app = express(),
       movies = models.movie,
       users = models.user; 
 
+let auth = require("./auth")(app); // (app) ensures Express is available in auth.js,
+
+const passport = require("passport");
 require("./passport");
 
 mongoose.connect("mongodb://localhost:27017/myFlixDB", {
@@ -39,7 +40,7 @@ app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) 
 });
 
 // READ a list of ALL users
-app.get("/users", passport.authenticate("jwt", { session: false }), (req, res) => {
+app.get("/users", (req, res) => {
   users.find()
     .then(users => res.status(200).json(users))
     .catch(err => {
