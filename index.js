@@ -118,9 +118,9 @@ app.post("/users",
   [
     check("username", "Username is required").isLength({min: 5}),
     check("username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
-    check("password", "Passwod is required").not().isEmpty(),
+    check("password", "Password is required").not().isEmpty(),
     check("email", "Email does not appear to be valid").isEmail()
-  ](req, res) => {
+  ], (req, res) => {
 
   let errors = validationResult(req);
 
@@ -233,7 +233,7 @@ app.delete("/users/:username", passport.authenticate("jwt", { session: false }),
     });
 });
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Listening on Port ${port}`);
 });

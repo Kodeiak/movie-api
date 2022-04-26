@@ -27,10 +27,10 @@ let userSchema = mongoose.Schema({
   favoriteMovies: [{type: mongoose.Schema.Types.ObjectId, ref: "movie"}]
 });
 
-userSchema.statics.hashPassword = password => { bcrypt.hashSync(password, 10)};
+userSchema.statics.hashPassword = password => { return bcrypt.hashSync(password, 10);};
 
 userSchema.methods.validatePassword = function(password) {
-  return bcrypt.compareSync(password, this.Password); // refers to user doc rather than userSchema.methods
+  return bcrypt.compareSync(password, this.password); // refers to user doc rather than userSchema.methods
 };
 
 let movie = mongoose.model("movie", movieSchema);
