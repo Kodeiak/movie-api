@@ -5,7 +5,9 @@ const express = require("express"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
       cors = require("cors"),
+      { check, validateResult, validationResult } = require("express-validator"),
       models = require("./models.js");
+const res = require("express/lib/response");
 
 const app = express(),
       movies = models.movie,
@@ -112,7 +114,21 @@ app.get("/movies/director/:directorName", passport.authenticate("jwt", { session
   email: String,
   birthday: Date
 }*/
-app.post("/users", (req, res) => {
+app.post("/users", 
+  [
+    check("username", "Username is required").isLength({min: 5}),
+    check("username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+    check("password", "Passwod is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail()
+  ](req, res) => {
+
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  
+  let hashedPassword = users.hashPassword(req.body.password);
   users.findOne({username: req.body.username}) //query users model for user by username
     .then((user) => {
       if (user) { // if user exists
@@ -121,7 +137,7 @@ app.post("/users", (req, res) => {
         users
           .create({
             username: req.body.username,
-            password: req.body.password,
+            password: hashedPassword,
             email: req.body.email,
             birthday: req.body.birthday
           })
@@ -217,8 +233,9 @@ app.delete("/users/:username", passport.authenticate("jwt", { session: false }),
     });
 });
 
-app.listen(8080, () => {
-  console.log("Your app is listening on port 8080.");
+const port = process.env.PORT || 8080
+app.listen(port, "0.0.0.0", () => {
+  console.log(`Listening on Port ${port}`);
 });
 
 console.log("My first Node test server is running on Port 8080.");
