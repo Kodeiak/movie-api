@@ -4,6 +4,7 @@ const express = require("express"),
       uuid = require("uuid"),
       bodyParser = require("body-parser"),
       mongoose = require("mongoose"),
+      cors = require("cors"),
       models = require("./models.js");
 
 const app = express(),
@@ -22,6 +23,7 @@ mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 
 app.use(morgan("common"));
 app.use(express.static("public"));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((err, req, res, next) => {
@@ -110,7 +112,7 @@ app.get("/movies/director/:directorName", passport.authenticate("jwt", { session
   email: String,
   birthday: Date
 }*/
-app.post("/users", passport.authenticate("jwt", { session: false }), (req, res) => {
+app.post("/users", (req, res) => {
   users.findOne({username: req.body.username}) //query users model for user by username
     .then((user) => {
       if (user) { // if user exists
