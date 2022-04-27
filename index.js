@@ -18,8 +18,6 @@ let auth = require("./auth")(app); // (app) ensures Express is available in auth
 const passport = require("passport");
 require("./passport");
 
-Access-Control-Allow-Origin: *
-
 // Local DB
 // mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 //   useNewUrlParser: true,
