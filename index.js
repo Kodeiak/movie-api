@@ -18,10 +18,17 @@ let auth = require("./auth")(app); // (app) ensures Express is available in auth
 const passport = require("passport");
 require("./passport");
 
-mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+// Local DB
+// mongoose.connect("mongodb://localhost:27017/myFlixDB", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true
+// });
+
+// Hosted DB
+mongoose.connect( process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-});
+})
 
 app.use(morgan("common"));
 app.use(express.static("public"));
