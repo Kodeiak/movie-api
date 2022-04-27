@@ -18,6 +18,8 @@ let auth = require("./auth")(app); // (app) ensures Express is available in auth
 const passport = require("passport");
 require("./passport");
 
+Access-Control-Allow-Origin: *
+
 // Local DB
 // mongoose.connect("mongodb://localhost:27017/myFlixDB", {
 //   useNewUrlParser: true,
@@ -28,7 +30,7 @@ require("./passport");
 mongoose.connect( process.env.CONNECTION_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-})
+});
 
 app.use(morgan("common"));
 app.use(express.static("public"));
@@ -38,6 +40,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
+});
+
+// GET Welcome page
+app.get("/", (req, res) => {
+  res.status(200).send("Welcome to myFlixDB!");
 });
 
 // READ a list of ALL movies to the user
@@ -172,7 +179,21 @@ app.post("/users",
   (required)
   birthday: Date
 }*/
-app.put("/users/:username", passport.authenticate("jwt", { session: false }), (req, res) => {
+app.put("/users/:username",
+  [
+    check("username", "Username is required").isLength({min: 5}),
+    check("username", "Username contains non alphanumeric characters - not allowed.").isAlphanumeric(),
+    check("password", "Password is required").not().isEmpty(),
+    check("email", "Email does not appear to be valid").isEmail()
+  ], 
+  passport.authenticate("jwt", { session: false }), (req, res) => {
+
+  let errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(422).json({ errors: errors.array() });
+  }
+  
   users.findOneAndUpdate(
     { username: req.params.username},
     { 
@@ -245,5 +266,4 @@ app.listen(port, "0.0.0.0", () => {
   console.log(`Listening on Port ${port}`);
 });
 
-console.log("My first Node test server is running on Port 8080.");
 
