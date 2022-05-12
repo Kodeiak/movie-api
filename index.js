@@ -46,7 +46,8 @@ app.get("/", (req, res) => {
 });
 
 // READ a list of ALL movies to the user
-app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) => {
+// app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) => {
+app.get("/movies", (req, res) => {
   movies.find()
   .then(movies => res.status(200).json(movies))
   .catch(err => {
@@ -154,10 +155,10 @@ app.post("/users",
             birthday: req.body.birthday
           })
           .then((user) => res.status(201).json(user)) // send json response using the document just created
-        .catch((error) => {
-          console.error(error);
-          res.status(500).send(`Error: ${error}`);
-        });
+          .catch((error) => {
+            console.error(error);
+            res.status(500).send(`Error: ${error}`);
+          });
       }
     })
     .catch((error) => {
