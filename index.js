@@ -19,7 +19,7 @@ require("./passport");
 // whitelist urls
 let whitelist = [
   "https://myflixdb-kodeiak.herokuapp.com",
-  "http://localhost:1234/"
+  "http://localhost:1234"
 ];
 // "Access-Control-Allow-Origin": https://myflixdb-kodeiak.herokuapp.com 
 app.use(
