@@ -16,6 +16,25 @@ const app = express(),
 const passport = require("passport");
 require("./passport");
 
+// whitelist urls
+let whitelist = [
+  "https://myflixdb-kodeiak.herokuapp.com",
+  "http://localhost:1234/"
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (whitelist.indexOf(origin) !== -1 || !origin) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+  })
+);
+
+let auth = require("./auth")(app); // (app) ensures Express is available in auth.js,
 
 
 // Local DB
@@ -32,26 +51,6 @@ mongoose.connect( process.env.CONNECTION_URI, {
 
 app.use(morgan("common"));
 app.use(express.static("public"));
-
-// whitelist urls
-let whitelist = [
-  "https://myflixdb-kodeiak.herokuapp.com",
-  "http://localhost:1234/"
-];
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
-);
-
-let auth = require("./auth")(app); // (app) ensures Express is available in auth.js,
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use((err, req, res, next) => {
