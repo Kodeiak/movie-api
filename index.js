@@ -21,7 +21,7 @@ let whitelist = [
   "https://myflixdb-kodeiak.herokuapp.com",
   "http://localhost:1234/"
 ];
-
+"Access-Control-Allow-Origin": https://myflixdb-kodeiak.herokuapp.com
 app.use(
   cors({
     origin: (origin, callback) => {
