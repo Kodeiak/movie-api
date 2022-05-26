@@ -21,7 +21,7 @@ let whitelist = [
   "https://myflixdb-kodeiak.herokuapp.com",
   "http://localhost:1234"
 ];
-// "Access-Control-Allow-Origin": https://myflixdb-kodeiak.herokuapp.com 
+
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -65,8 +65,8 @@ app.get("/", (req, res) => {
 });
 
 // READ a list of ALL movies to the user
-// app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) => {
-app.get("/movies", (req, res) => {
+app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) => {
+// app.get("/movies", (req, res) => {
   movies.find()
   .then(movies => res.status(200).json(movies))
   .catch(err => {
