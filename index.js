@@ -20,7 +20,8 @@ require("./passport");
 let whitelist = [
   "https://myflixdb-kodeiak.herokuapp.com",
   "http://localhost:1234",
-  "https://www.themoviedb.org"
+  "https://www.themoviedb.org",
+  "https://62c758afab75b800089fe189--myflix-movieapp-client.netlify.app"
 ];
 
 app.use(
