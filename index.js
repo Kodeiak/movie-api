@@ -23,6 +23,7 @@ let whitelist = [
   "https://www.themoviedb.org/t/p",
   "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/bSqt9rhDZx1Q7UZ86dBPKdNomp2.jpg",
   "https://62c758afab75b800089fe189--myflix-movieapp-client.netlify.app",
+  "https://image.tmdb.org/t/p/",
   "https://main--myflix-movieapp-client.netlify.app"
 ];
 
