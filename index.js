@@ -28,16 +28,18 @@ let whitelist = [
 ];
 
 app.use(
-  cors({
-    origin: (origin, callback) => {
-      console.log(whitelist.indexOf(origin));
-      if (whitelist.indexOf(origin) !== -1 || !origin) {
-        callback(null, { origin: true });
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-  })
+  cors(
+  //   {
+  //   origin: (origin, callback) => {
+  //     console.log(whitelist.indexOf(origin));
+  //     if (whitelist.indexOf(origin) !== -1 || !origin) {
+  //       callback(null, { origin: true });
+  //     } else {
+  //       callback(new Error("Not allowed by CORS"));
+  //     }
+  //   },
+  // }
+  )
 );
 
 let auth = require("./auth")(app); // (app) ensures Express is available in auth.js,
