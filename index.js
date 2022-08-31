@@ -26,7 +26,8 @@ let whitelist = [
   "https://62c758afab75b800089fe189--myflix-movieapp-client.netlify.app",
   "https://image.tmdb.org/t/p/",
   "https://main--myflix-movieapp-client.netlify.app",
-  "https://kodeiak.github.io/myFlix-Angular-client"
+  "https://kodeiak.github.io/myFlix-Angular-client",
+  "https://kodeiak.github.io"
 ];
 
 app.use(
