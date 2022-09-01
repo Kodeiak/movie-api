@@ -1,5 +1,7 @@
 # myFlixDB
-A movie database where users can browse details of movies, actors, directors, and rank their favorite movies
+A movie database where users can browse details of movies, actors, directors, and rank their favorite movies.  
+
+See https://github.com/Kodeiak/myFlix-client for the front-end.
 
 ## Objective
 To build the server-side component of a “movies” web application. The web
