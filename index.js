@@ -67,12 +67,18 @@ app.use((err, req, res, next) => {
   res.status(500).send("Something broke!");
 });
 
-// GET Welcome page
+/**
+ * GET Welcome page
+ * @returns welcome message
+ */
 app.get("/", (req, res) => {
   res.status(200).send("Welcome to myFlixDB!");
 });
 
-// READ a list of ALL movies to the user
+/**
+ * GET a list of ALL movies to the user
+ * @returns movie data
+ */
 app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) => {
 // app.get("/movies", (req, res) => {
   movies.find()
@@ -83,7 +89,10 @@ app.get("/movies", passport.authenticate("jwt", { session: false }), (req, res) 
   });
 });
 
-// READ a list of ALL users
+/**
+ * GET a list of ALL users
+ * @returns user list
+ */
 app.get("/users", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.find()
     .then(users => res.status(200).json(users))
@@ -93,7 +102,10 @@ app.get("/users", passport.authenticate("jwt", { session: false }), (req, res) =
     });
 });
 
-// READ user by username
+/**
+ * GET user by username
+ * @returns user data
+ */
 app.get("/users/:username", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.findOne({ username: req.params.username})
     .then( user => res.json(user))
@@ -103,7 +115,10 @@ app.get("/users/:username", passport.authenticate("jwt", { session: false }), (r
     });
 });
 
-// READ data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+/**
+ * GET data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
+ * @returns data for single movie
+ */
 app.get("/movies/:title", passport.authenticate("jwt", { session: false }), (req, res) => {
   movies.findOne({ title: req.params.title})
     .then ( movie => res.status(200).json(movie))
@@ -113,7 +128,10 @@ app.get("/movies/:title", passport.authenticate("jwt", { session: false }), (req
     });
 });
 
-// READ data about a genre (description) by name/title (e.g., "The Dark Knight")
+/**
+ * GET data about a genre (description) by name/title (e.g., "The Dark Knight")
+ * @returns genre data
+ */
 app.get("/movies/genre/:name", passport.authenticate("jwt", { session: false }), (req, res) => {
   movies.findOne({ "genre.name": req.params.name})
     .then ( movie => {
@@ -129,7 +147,10 @@ app.get("/movies/genre/:name", passport.authenticate("jwt", { session: false }),
     });
 });
 
-// READ data about a director (bio, birth year, death year) by name
+/**
+ * GET data about a director (bio, birth year, death year) by name
+ * @returns director details
+ */
 app.get("/movies/director/:directorName", passport.authenticate("jwt", { session: false }), (req, res) => {
   movies.findOne({ "director.name": req.params.directorName})
     .then( movie => {
@@ -145,15 +166,17 @@ app.get("/movies/director/:directorName", passport.authenticate("jwt", { session
     });
 });
 
-// CREATE - register new users
-/* Expected JSON Format
+/**
+ * CREATE - register new users
+Expected JSON Format
 { 
   ID: Integer,
   username: String,
   password: String,
   email: String,
   birthday: Date
-}*/
+}
+ */
 app.post("/users", 
   [
     check("username", "Username is required").isLength({min: 5}),
@@ -194,17 +217,18 @@ app.post("/users",
     });
 });
 
-// UPDATE - allow users to update their username
-/* Expected JSON format
-{
-  username: String,
-  (required)
-  password: String,
-  (required)
-  email: String,
-  (required)
-  birthday: Date
-}*/
+/** UPDATE - allow users to update their username
+  * Expected JSON format
+  * {
+  * username: String,
+  * (required)
+  * password: String,
+  * (required)
+  * email: String,
+  * (required)
+  * birthday: Date
+  * }
+  */
 app.put("/users/:username",
   [
     check("username", "Username is required").isLength({min: 5}),
@@ -240,7 +264,10 @@ app.put("/users/:username",
   });
 });
 
-// UPDATE - Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+/**
+ * PUT - Allow users to add a movie to their list of favorites (showing only a text that a movie has been added—more on this later)
+ * @returns updated user
+ */
 app.put("/users/:username/movies/:movieID", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.findOneAndUpdate(
     {username: req.params.username},
@@ -255,7 +282,9 @@ app.put("/users/:username/movies/:movieID", passport.authenticate("jwt", { sessi
   });
 });
 
-// DELETE - Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+/**
+ * DELETE - Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed—more on this later)
+ */
 app.delete("/users/:username/movies/:movieID", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.findOneAndUpdate(
     {username: req.params.username},
@@ -271,7 +300,9 @@ app.delete("/users/:username/movies/:movieID", passport.authenticate("jwt", { se
 });
 
 
-// DELETE - Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
+/**
+ * DELETE - Allow existing users to deregister (showing only a text that a user email has been removed—more on this later)
+ */
 app.delete("/users/:username", passport.authenticate("jwt", { session: false }), (req, res) => {
   users.findOneAndRemove({ username: req.params.username})
     .then( user => {
